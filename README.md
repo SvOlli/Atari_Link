@@ -1,8 +1,5 @@
-
- ======================================
- = Atari 2600 VCS Link Cable Software =
- ======================================
-
+Atari 2600 VCS Link Cable Software
+==================================
 
 Hardware:
 The design is based upon the Ardiuno platform. I suggest you go for a clone of
@@ -13,7 +10,8 @@ work, but either the wiring will be not so straight forward, or the software
 needs to be set up for the different pin layout you decide.
 
   This is the wiring I used for the software:
-  
+
+```  
             __|USB|__
    D13(PB5)|  |___|  |(PB4)D12---B SUB-D 1
    3V3(3V3)|  _____  |(PB3)D11---B SUB-D 2
@@ -30,10 +28,11 @@ needs to be set up for the different pin layout you decide.
    RST(PC6)|         |(PC6)RST
    GND     |   JTAG  |(PD0)D0RX
    VIN(*)  |_________|(PD1)D1TX
+```
 
-* If you want to use the board without supplying power via USB, connect VIN
-  to A SUB-D 7. Do NOT use B SUB-D, since a dataline has been misused for GND
-  there.
+(*) If you want to use the board without supplying power via USB, connect VIN
+to "A SUB-D 7". Do NOT use "B SUB-D", since a dataline has been misused for
+GND there.
 
 All five lines of lines used for a standard joystick are also used for linking.
 Assume that the cable is plugged into the right controller port the cable is
@@ -46,9 +45,11 @@ SWCHA & $01 (read) : read data
 INPT5 & $80 (read) : high = buffer in the cable is empty
 
 The clock lines are toggled with
+```
   lda SWCHA
   eor #$02 ; or #$08
   sta SWCHA
+```
 to signalize that the data bit has been read (or written)
 
 
@@ -63,12 +64,12 @@ If both avr-gcc and cc65 are installed all the software necessary for testing
 the cable can be build just by running "make".
 
 There are five pieces of software included:
-bitsetter: Arduino test program for setting all GPIOs (for debugging)
-bittester: 2600 test programm displaying all io-ports
-linkcable: The firmware for the link cable
-looptest:  2600 test programm for a loopback-test connecting link cable to both
-           controller ports
-queuetest: a small test utility to verify functionality of the software queue.
+- bitsetter: Arduino test program for setting all GPIOs (for debugging)
+- bittester: 2600 test programm displaying all io-ports
+- linkcable: The firmware for the link cable
+- looptest:  2600 test programm for a loopback-test connecting link cable to both
+  controller ports
+- queuetest: a small test utility to verify functionality of the software queue.
 
 I guess there will be some questions left, so contact me on AtariAge,
 SvOlli
