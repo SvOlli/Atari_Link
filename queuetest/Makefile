@@ -2,7 +2,7 @@
 PROG = queuetest
 OBJS = queuetest.o queue.o
 CC=gcc
-CFLAGS += -g -I.. -Wall -pedantic
+CFLAGS += -g -I../linkcable -Wall -pedantic
 
 all: $(PROG)
 
@@ -11,7 +11,7 @@ $(PROG): $(OBJS)
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $^
 
-%.o: ../%.c
+%.o: ../linkcable/%.c
 	$(CC) $(CFLAGS) -c -o $@ $^
 
 clean realclean:
